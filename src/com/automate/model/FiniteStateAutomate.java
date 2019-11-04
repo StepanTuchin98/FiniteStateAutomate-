@@ -36,26 +36,26 @@ public class FiniteStateAutomate {
     }
 
     private void setFinalStates() throws IOException {
-        this.setSetOfFinalStates(getStatesFromFile("src\\com\\automate\\resources\\FinalStates.txt"));
+        this.setSetOfFinalStates(getStatesFromFile("/Users/stuchin/Desktop/FiniteStateAutomate-/src/com/automate/resources/FinalStates.txt"));
     }
 
     private void setInitialStates() throws IOException {
-        this.setSetOfInitialStates(getStatesFromFile("src\\com\\automate\\resources\\InitialStates.txt"));
+        this.setSetOfInitialStates(getStatesFromFile("/Users/stuchin/Desktop/FiniteStateAutomate-/src/com/automate/resources/InitialStates.txt"));
     }
 
     private void setAllStates() throws IOException {
-        this.setSetOfAllStates(getStatesFromFile("src\\com\\automate\\resources\\AllStates.txt"));
+        this.setSetOfAllStates(getStatesFromFile("/Users/stuchin/Desktop/FiniteStateAutomate-/src/com/automate/resources/AllStates.txt"));
     }
 
     private void setAlphabet() throws IOException {
-        List<String> signals = Arrays.asList(Files.lines(Paths.get("src\\com\\automate\\resources\\Signals.txt"), UTF_8)
+        List<String> signals = Arrays.asList(Files.lines(Paths.get("/Users/stuchin/Desktop/FiniteStateAutomate-/src/com/automate/resources/Signals.txt"), UTF_8)
                 .collect(Collectors.joining(System.lineSeparator())).toLowerCase().split(" "));
         this.setAlphabet(signals);
     }
 
     private void setMatrix() throws IOException {
-        String[] lines = Files.lines(Paths.get("src\\com\\automate\\resources\\Transitions.txt"), UTF_8)
-                .collect(Collectors.joining(System.lineSeparator())).toLowerCase().split("\r\n");
+        String[] lines = Files.lines(Paths.get("/Users/stuchin/Desktop/FiniteStateAutomate-/src/com/automate/resources/Transitions.txt"), UTF_8)
+                .collect(Collectors.joining(System.lineSeparator())).toLowerCase().split(System.lineSeparator());
         List<Transition> transitions = Arrays.stream(lines).map(line -> {
             String[] transition = line.split(" ");
             return new Transition(transition[0], transition[2], transition[1]);

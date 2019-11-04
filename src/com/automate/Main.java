@@ -13,14 +13,14 @@ public class Main {
 
         int pos = 0;
         Scanner sc = new Scanner(System.in);
-        String line = sc.next();
+        String digit = sc.next();
 
-        while (pos < line.length()) {
-            Pair answer = MaxString(finiteStateAutomate, line, pos);
+        while (pos < digit.length()) {
+            Pair answer = MaxString(finiteStateAutomate, digit, pos);
             System.out.println("Max String exist " + answer.isExist() + " Length is " + answer.getSize());
             if (answer.isExist()) {
-                String outputString = line.substring(pos, pos + answer.getSize());
-                System.out.println(outputString);
+                String resultString = digit.substring(pos, pos + answer.getSize());
+                System.out.println(resultString);
                 pos += answer.getSize();
             } else {
                 pos++;
@@ -29,7 +29,7 @@ public class Main {
 
     }
 
-    public static Pair MaxString(FiniteStateAutomate a, String line, int position) {
+    public static Pair MaxString(FiniteStateAutomate a, String number, int position) {
         boolean result = false;
         int maxLength = 0;
         String curState = a.getSetOfInitialStates().get(0);
@@ -38,13 +38,13 @@ public class Main {
             result = true;
         }
 
-        for (int i = position; i < line.length(); i++) {
-            if (containsSuchLetterInAlpha(a, line, i)) {
+        for (int i = position; i < number.length(); i++) {
+            if (containsSuchLetterInAlpha(a, number, i)) {
                 return new Pair(result, maxLength);
-            } else if (!a.hasTransitionWithLetter(curState, Character.toString(line.charAt(i)))) {
+            } else if (!a.hasTransitionWithLetter(curState, Character.toString(number.charAt(i)))) {
                 return new Pair(result, maxLength);
             } else {
-                curState = a.getNewState(curState, Character.toString(line.charAt(i)));
+                curState = a.getNewState(curState, Character.toString(number.charAt(i)));
 
                 if (a.getSetOfFinalStates().contains(curState)) {
                     result = true;
