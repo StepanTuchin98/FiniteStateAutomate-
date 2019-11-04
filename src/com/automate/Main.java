@@ -17,7 +17,7 @@ public class Main {
 
         while (pos < line.length()) {
             Pair answer = MaxString(finiteStateAutomate, line, pos);
-            System.out.println("Max String exist "  + answer.isExist() + " Length is " + answer.getSize());
+            System.out.println("Max String exist " + answer.isExist() + " Length is " + answer.getSize());
             if (answer.isExist()) {
                 String outputString = line.substring(pos, pos + answer.getSize());
                 System.out.println(outputString);
@@ -30,38 +30,33 @@ public class Main {
     }
 
     public static Pair MaxString(FiniteStateAutomate a, String line, int position) {
-        boolean flag = false;
+        boolean result = false;
         int maxLength = 0;
         String curState = a.getSetOfInitialStates().get(0);
 
-        boolean isFinishState = false;
         if (a.getSetOfFinalStates().contains(curState)) {
-            isFinishState = true;
+            result = true;
         }
 
         for (int i = position; i < line.length(); i++) {
             if (containsSuchLetterInAlpha(a, line, i)) {
-                return new Pair(flag, maxLength);
+                return new Pair(result, maxLength);
             } else if (!a.hasTransitionWithLetter(curState, Character.toString(line.charAt(i)))) {
-                return new Pair(flag, maxLength);
+                return new Pair(result, maxLength);
             } else {
                 curState = a.getNewState(curState, Character.toString(line.charAt(i)));
-                maxLength++;
-                flag = true;
-                if (!a.getSetOfFinalStates().contains(curState)) {
-                    isFinishState = true;
-                } else {
-                    flag = false;
-                    isFinishState = false;
+
+                if (a.getSetOfFinalStates().contains(curState)) {
+                    result = true;
+                    maxLength = i + 1 - position;
                 }
             }
         }
-        flag = isFinishState;
 
-        return new Pair(flag, maxLength);
+        return new Pair(result, maxLength);
     }
 
-    private static boolean containsSuchLetterInAlpha(FiniteStateAutomate a, String line, int i){
+    private static boolean containsSuchLetterInAlpha(FiniteStateAutomate a, String line, int i) {
         return a.getAlphabet().indexOf(Character.toString(line.charAt(i))) == -1;
     }
 }
