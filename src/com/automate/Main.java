@@ -3,8 +3,13 @@ package com.automate;
 import com.automate.model.FiniteStateAutomate;
 import com.automate.model.Pair;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Main {
 
@@ -12,20 +17,29 @@ public class Main {
         FiniteStateAutomate finiteStateAutomate = new FiniteStateAutomate();
 
         int pos = 0;
-        Scanner sc = new Scanner(System.in);
-        String digit = sc.next();
+        StringBuilder str = new StringBuilder();
+        String digit = new String(Files.readAllBytes(Paths.get("/Users/stuchin/Desktop/FiniteStateAutomate-/src/com/automate/resources/input.txt")));
 
         while (pos < digit.length()) {
             Pair answer = MaxString(finiteStateAutomate, digit, pos);
-            System.out.println("Max String exist " + answer.isExist() + " Length is " + answer.getSize());
+
             if (answer.isExist()) {
                 String resultString = digit.substring(pos, pos + answer.getSize());
-                System.out.println(resultString);
-                pos += answer.getSize();
+
+                if (answer.getSize() > 0) {
+                    pos += answer.getSize();
+                    str.append(resultString).append("\n");
+                    System.out.println(resultString);
+                }
+                else
+                    pos++;
             } else {
                 pos++;
             }
         }
+        FileOutputStream outputStream = new FileOutputStream("/Users/stuchin/Desktop/FiniteStateAutomate-/src/com/automate/resources/output.txt");
+        byte[] strToBytes = new String(str).getBytes();
+        outputStream.write(strToBytes);
 
     }
 
