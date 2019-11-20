@@ -1,0 +1,13 @@
+S0 w S1
+S1 w S1
+S0 h S1
+S1 h S1
+S0 i S1
+S1 i S1
+S0 l S1
+S1 l S1
+S0 e S1
+S1 e S1
+S1 1 S1
+S1 2 S1
+S1 3 S1
